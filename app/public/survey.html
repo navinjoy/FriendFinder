@@ -57,7 +57,7 @@
         </div>
         <div>
             <h2>Question 3</h2>
-            <h4>Generally speaking, you rely more on your experience than your imagination.</h4>
+            <h4>You find it easy to stay relaxed and focused even when there is some pressure.</h4>
             <select class="form-control questions" id="q3" placeholder="Select an option" style="width: 180px; height: 30px">
                 <option disabled selected value>Select an option</option>
                 <option value="1">1 (Strongly Disagree)</option>
@@ -70,7 +70,7 @@
         </div>
         <div>
             <h2>Question 4</h2>
-            <h4>Generally speaking, you rely more on your experience than your imagination.</h4>
+            <h4>You rarely do something just out of sheer curiosity.</h4>
             <select class="form-control questions" id="q4" placeholder="Select an option" style="width: 180px; height: 30px">
                 <option disabled selected value>Select an option</option>
                 <option value="1">1 (Strongly Disagree)</option>
@@ -83,7 +83,7 @@
         </div>
         <div>
             <h2>Question 5</h2>
-            <h4>Generally speaking, you rely more on your experience than your imagination.</h4>
+            <h4>People can rarely upset you.</h4>
             <select class="form-control questions" id="q5" placeholder="Select an option" style="width: 180px; height: 30px">
                 <option disabled selected value>Select an option</option>
                 <option value="1">1 (Strongly Disagree)</option>
@@ -96,7 +96,7 @@
         </div>
         <div>
             <h2>Question 6</h2>
-            <h4>Generally speaking, you rely more on your experience than your imagination.</h4>
+            <h4>It is often difficult for you to relate to other people’s feelings.</h4>
             <select class="form-control questions" id="q6" placeholder="Select an option" style="width: 180px; height: 30px">
                 <option disabled selected value>Select an option</option>
                 <option value="1">1 (Strongly Disagree)</option>
@@ -109,7 +109,7 @@
         </div>
         <div>
             <h2>Question 7</h2>
-            <h4>Generally speaking, you rely more on your experience than your imagination.</h4>
+            <h4>In a discussion, truth should be more important than people’s sensitivities.</h4>
             <select class="form-control questions" id="q7" placeholder="Select an option" style="width: 180px; height: 30px">
                 <option disabled selected value>Select an option</option>
                 <option value="1">1 (Strongly Disagree)</option>
@@ -122,7 +122,7 @@
         </div>
         <div>
             <h2>Question 8</h2>
-            <h4>Generally speaking, you rely more on your experience than your imagination.</h4>
+            <h4>You rarely get carried away by fantasies and ideas.</h4>
             <select class="form-control questions" id="q8" placeholder="Select an option" style="width: 180px; height: 30px">
                 <option disabled selected value>Select an option</option>
                 <option value="1">1 (Strongly Disagree)</option>
@@ -135,7 +135,7 @@
         </div>
         <div>
             <h2>Question 9</h2>
-            <h4>Generally speaking, you rely more on your experience than your imagination.</h4>
+            <h4>You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</h4>
             <select class="form-control questions" id="q9" placeholder="Select an option" style="width: 180px; height: 30px">
                 <option disabled selected value>Select an option</option>
                 <option value="1">1 (Strongly Disagree)</option>
@@ -148,7 +148,7 @@
         </div>
         <div>
             <h2>Question 10</h2>
-            <h4>Generally speaking, you rely more on your experience than your imagination.</h4>
+            <h4>You feel more energetic after spending time with a group of people.</h4>
             <select class="form-control questions" id="q10" placeholder="Select an option" style="width: 180px; height: 30px">
                 <option disabled selected value>Select an option</option>
                 <option value="1">1 (Strongly Disagree)</option>
@@ -174,7 +174,7 @@
         event.preventDefault();
 
         if ($("#name").val().trim() === "" ||
-            $("#photolink").val().trim() !== "" ||
+            $("#photolink").val().trim() === "" ||
             $("#q1").find(":selected").text() === "Select an option" ||
             $("#q2").find(":selected").text() === "Select an option" ||
             $("#q3").find(":selected").text() === "Select an option" ||
@@ -190,32 +190,29 @@
             return;
         }
 
-        var frienddata = {
-            name: $("#name").val().trim(),
-            photo: $("#photolink").val().trim(),
-            scores: [
-                $("#q1").find(":selected").val(),
-                $("#q2").find(":selected").val(),
-                $("#q3").find(":selected").val(),
-                $("#q4").find(":selected").val(),
-                $("#q5").find(":selected").val(),
-                $("#q6").find(":selected").val(),
-                $("#q7").find(":selected").val(),
-                $("#q8").find(":selected").val(),
-                $("#q9").find(":selected").val(),
-                $("#q10").find(":selected").val()
-            ]
-        }
+        var scoreArr = [];
 
+        for (i=1;i<=$('.questions').length;i++) {
+            var qScore = $('#q'+i).find(":selected").val();
+            scoreArr.push(qScore);
+        }
+        var frienddata = {
+            scores: scoreArr,
+            name: $("#name").val().trim(),
+            photo: $("#photolink").val().trim()
+            
+        }
+        
         $.post('api/friends', frienddata, function (data) {
             if (data) {
+                console.log(data);
                 alert("Friend data submitted successfully");
             }
             else {
                 alert("Sorry friend data was not submitted.");
             }
         })
-        console.log(frienddata);
+        // console.log(frienddata);
 
     })
 </script>
