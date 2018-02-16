@@ -179,23 +179,38 @@
         <br>
         <button type="button" class="btn btn-primary" id="submit">Submit</button>
     </form>
-    <div class="popup-overlay">
-        <!--Creates the popup content-->
+    <!-- <div class="popup-overlay">
         <div class="popup-content">
             <h2>Pop-Up</h2>
             <p> This is an example pop-up that you can make using jQuery.</p>
-            <!--popup's close button-->
             <button class="close">Close</button>
         </div>
-    </div>
-
+    </div> -->
+    <div class="modal" id="myModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title">Best Match !!</h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p></p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
 </body>
 
 </html>
 <script type="text/javascript">
 
-    $(".close, .popup").on("click", function () {
-        $(".popup, .popup-content").removeClass("active");
+    $(".close").on("click", function () {
+        $("#myModal").hide();
     });
 
     $('#submit').on('click', function (event) {
@@ -235,7 +250,9 @@
             if (data) {
                 console.log(data);
                 alert("Friend data submitted successfully");
-                $(".popup, .popup-content").addClass("active").css("color","lightblue");
+                // $(".popup, .popup-content").addClass("active").css("color","lightblue");
+                $('.modal-body').append("<p>").text(data.name);
+                $("#myModal").show();
             } else {
                 alert("Sorry friend data was not submitted.");
             }
