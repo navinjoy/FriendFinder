@@ -11,6 +11,23 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" /> -->
+    <style>
+        .popup-overlay {
+            visibility: hidden;
+        }
+
+        .popup-content {
+            visibility: hidden;
+        }
+
+        .popup-overlay.active {
+            visibility: visible;
+        }
+
+        .popup-content.active {
+            visibility: visible;
+        }
+    </style>
 </head>
 
 <body style="padding:20px">
@@ -162,13 +179,24 @@
         <br>
         <button type="button" class="btn btn-primary" id="submit">Submit</button>
     </form>
+    <div class="popup-overlay">
+        <!--Creates the popup content-->
+        <div class="popup-content">
+            <h2>Pop-Up</h2>
+            <p> This is an example pop-up that you can make using jQuery.</p>
+            <!--popup's close button-->
+            <button class="close">Close</button>
+        </div>
+    </div>
+
 </body>
 
 </html>
 <script type="text/javascript">
-    function isFormFilled() {
 
-    }
+    $(".close, .popup").on("click", function () {
+        $(".popup, .popup-content").removeClass("active");
+    });
 
     $('#submit').on('click', function (event) {
         event.preventDefault();
@@ -192,23 +220,23 @@
 
         var scoreArr = [];
 
-        for (i=1;i<=$('.questions').length;i++) {
-            var qScore = $('#q'+i).find(":selected").val();
+        for (i = 1; i <= $('.questions').length; i++) {
+            var qScore = $('#q' + i).find(":selected").val();
             scoreArr.push(qScore);
         }
         var frienddata = {
             scores: scoreArr,
             name: $("#name").val().trim(),
             photo: $("#photolink").val().trim()
-            
+
         }
-        
+
         $.post('api/friends', frienddata, function (data) {
             if (data) {
                 console.log(data);
                 alert("Friend data submitted successfully");
-            }
-            else {
+                $(".popup, .popup-content").addClass("active").css("color","lightblue");
+            } else {
                 alert("Sorry friend data was not submitted.");
             }
         })
