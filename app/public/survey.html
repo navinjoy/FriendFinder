@@ -187,28 +187,27 @@
         </div>
     </div> -->
     <div class="modal" id="myModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
-                  <h2 class="modal-title">Best Match !!</h2>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                    <h2 class="modal-title">Best Match !!</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                  <p></p>
+                    <p></p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
                 </div>
-              </div>
             </div>
-          </div>
+        </div>
+    </div>
 </body>
 
 </html>
 <script type="text/javascript">
-
     $(".close").on("click", function () {
         $("#myModal").hide();
     });
@@ -251,6 +250,11 @@
                 console.log(data);
                 alert("Friend data submitted successfully");
                 // $(".popup, .popup-content").addClass("active").css("color","lightblue");
+                
+                $('<img/>')
+                    .attr('src', "" + data.photo + "") // ADD IMAGE PROPERTIES.
+                    .width('113px').height('113px')
+                    .appendTo($('.modal-body'));
                 $('.modal-body').append("<p>").text(data.name);
                 $("#myModal").show();
             } else {
