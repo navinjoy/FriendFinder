@@ -45,6 +45,7 @@ module.exports = function (app) {
         // console.log(currentuser, currentuser["scores[]"])
         // console.log("*****")
         friends.push(currentuser);
+        // console.log('#####\n',friends);
         friends.forEach(function (item, index) {
             if (item.name === currentuser.name) {
                 currentUserPosition = index;

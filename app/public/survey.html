@@ -250,13 +250,15 @@
                 console.log(data);
                 alert("Friend data submitted successfully");
                 // $(".popup, .popup-content").addClass("active").css("color","lightblue");
-                
-                $('<img/>')
+                var img = $("<img/>")
                     .attr('src', "" + data.photo + "") // ADD IMAGE PROPERTIES.
                     .width('113px').height('113px')
-                    .appendTo($('.modal-body'));
-                $('.modal-body').append("<p>").text(data.name);
+                $('.modal-body').empty();
+                $('.modal-body').append(img)
+                var h3elem = $("<h3>").text(data.name);
+                $('.modal-body').append(h3elem);
                 $("#myModal").show();
+                console.log($('<img>'))
             } else {
                 alert("Sorry friend data was not submitted.");
             }
